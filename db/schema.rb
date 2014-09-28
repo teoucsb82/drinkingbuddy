@@ -11,7 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140928071743) do
+ActiveRecord::Schema.define(version: 20140928082507) do
+
+  create_table "event_guests", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "events", force: true do |t|
+    t.date     "start_time",  default: '2014-09-28'
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "private",     default: false
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "identities", force: true do |t|
     t.integer  "user_id"
@@ -22,6 +39,16 @@ ActiveRecord::Schema.define(version: 20140928071743) do
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id"
+
+  create_table "location_tags", force: true do |t|
+    t.float    "latitude"
+    t.float    "longitude"
+    t.text     "address"
+    t.integer  "locationable_id"
+    t.string   "locationable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

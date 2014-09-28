@@ -4,6 +4,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
+  has_many :location_tags, :as => :locationable
+  has_many :events
+  has_many :event_guests
+
   class Role
     ADMIN = -1
     DEFAULT = 0

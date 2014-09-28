@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
+  before_filter :load_user, :only => [:show, :edit, :update, :destroy]
+  before_filter :ensure_valid_user, :only => [:edit, :update, :destroy]
 
   # GET /users/:id.:format
   def show
-    # authorize! :read, @user
+
   end
 
   # GET /users/:id/edit
@@ -51,7 +53,7 @@ class UsersController < ApplicationController
   end
   
   private
-    def set_user
+    def load_user
       @user = User.find(params[:id])
     end
 
@@ -59,5 +61,9 @@ class UsersController < ApplicationController
       accessible = [ :name, :email ] # extend with your own params
       accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
       params.require(:user).permit(accessible)
+    end
+
+    def ensure_valid_user
+      return redirect_to root_url unless current_user == User.find(params[:id])
     end
 end
