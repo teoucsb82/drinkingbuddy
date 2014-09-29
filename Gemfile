@@ -16,6 +16,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
+gem 'twilio-ruby'
 
 # bootstrap
 gem 'bootstrap-sass', '~> 3.2.0'
