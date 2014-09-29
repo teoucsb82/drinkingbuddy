@@ -15,7 +15,6 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/:id.:format
   def update
-    # authorize! :update, @user
     respond_to do |format|
       if @user.update(user_params)
         sign_in(@user == current_user ? @user : current_user, :bypass => true)
@@ -53,17 +52,17 @@ class UsersController < ApplicationController
   end
   
   private
-    def load_user
-      @user = User.find(params[:id])
-    end
+  def load_user
+    @user = User.find(params[:id])
+  end
 
-    def user_params
-      accessible = [ :name, :email ] # extend with your own params
-      accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
-      params.require(:user).permit(accessible)
-    end
+  def user_params
+    accessible = [ :name, :email, :phone ] # extend with your own params
+    accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
+    params.require(:user).permit(accessible)
+  end
 
-    def ensure_valid_user
-      return redirect_to root_url unless current_user == User.find(params[:id])
-    end
+  def ensure_valid_user
+    return redirect_to root_url unless current_user == User.find(params[:id])
+  end
 end

@@ -6,7 +6,7 @@
       </div>
       <%= label_tag :radius, "Distance (Miles)", class: "col-sm-2 control-label" %>
       <div class="col-sm-3">
-        <%= select_tag(:radius, options_for_select( [5, 10, 25, 50, 100] ), class: "form-control") %>
+        <%= select_tag(:radius, options_for_select( [5, 10, 25, 50, 100, 500] ), class: "form-control") %>
       </div>
     </div>
 
@@ -34,17 +34,25 @@
         <div class="col-sm-2">
           <%= select_tag(:sex, options_for_select( [["I'm A...", nil], ["Guy", 1], ["Girl", 2]] ), class: "form-control" ) %>
         </div>
-        <%= label_tag :role, "Looking for:", class: "col-sm-2 control-label" %>
-        <div class="col-sm-5">
-          <%= select_tag(:role, options_for_select( [ 
-                                                    ["Single Guy", 1],
-                                                    ["Group of Guys", 2],
-                                                    ["Single Girl", 3],
-                                                    ["Group of Girls", 4],
-                                                    ["Mixed Group", 5],
-                                                    ["All Groups", 6]] ), { multiple: true, size: 6, class: "form-control"} ) %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :role, "Looking For", class: "col-sm-1 control-label" %>
+        <div class="col-sm-11">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="inlineCheckbox1" value="option1"> Wingman (Solo Guy)
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="inlineCheckbox2" value="option2"> Wingwoman (Solo Girl)
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="inlineCheckbox3" value="option3"> Group of Guys
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="inlineCheckbox3" value="option3"> Group of Girls
+          </label>
         </div>
       </div>
+      
     </div>
 
   <% end %>
