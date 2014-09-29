@@ -24,7 +24,7 @@ $(document).ready ->
       success: (data) ->
         events = $.parseJSON(data)
         loop_events(events)
-      error: (result) ->
+      error: ->
         alert "Sorry, something went wrong with your search."
       complete: (result) ->
         button.prop('disabled', false).val("Find A Buddy")
@@ -33,10 +33,21 @@ $(document).ready ->
 
 loop_events = (events) ->
   i = 0
+  points = []
+  description = []
   $("#search-results").html("")
   while i < events.length
-    $("#search-results").append("<div class=\"col-sm-4\"><a href=\"events/" + events[i].id + "\">" + events[i].title + "</a></div>")
+    points.push([events[i].title, events[i].latitude, events[i].longitude])
+    description.push(['<div class="info_content">
+          <h3><a href="/events/' + events[i].id + '">' + events[i].title + '</a></h3>
+          <p>' + events[i].description + '</p>
+          <p>' + events[i].start_time + '</p>
+          </div>'])
     i++
   if events.length == 0
+    $("#map_wrapper").addClass("hidden")
     $("#search-results").append("No Results Found.")
+  else
+    $("#map_wrapper").removeClass("hidden")
+    initialize(points, description)
   return

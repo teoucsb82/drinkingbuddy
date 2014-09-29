@@ -32,4 +32,9 @@ class Event < ActiveRecord::Base
     self.start_time = DateTime.new(date.year, date.month, date.day, hour, minute, 0, 0)
     self.private = params["private"] == "yes"
   end
+
+  def update_coordinates
+    self.update_attributes!(:latitude => self.location_tag.latitude,
+                            :longitude => self.location_tag.longitude)
+  end
 end

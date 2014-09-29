@@ -40,6 +40,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         @event.create_location_tag(:address => params[:event][:location])
+        @event.update_coordinates
         format.html { redirect_to @event, notice: 'event was successfully created.' }
         format.json { render action: 'show', status: :created, location: @event }
       else

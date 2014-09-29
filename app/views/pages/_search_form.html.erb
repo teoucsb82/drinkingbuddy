@@ -2,7 +2,7 @@
     <div class="form-group">
       <%= label_tag :address, "Where:", class: "col-sm-1 control-label" %>
       <div class="col-sm-6">
-        <%= text_field_tag :address, params[:address], :autofocus=>true, :placeholder => "enter a street address, city or zip. ie #{@city || "Los Angeles"}", class: "form-control" %>
+        <%= text_field_tag :address, params[:address], :autofocus=>true, :placeholder => "enter a street address, city or zip.", class: "form-control" %>
       </div>
       <%= label_tag :radius, "Distance (Miles)", class: "col-sm-2 control-label" %>
       <div class="col-sm-3">
