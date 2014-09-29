@@ -1,0 +1,50 @@
+  <%= form_tag events_path, :method => 'get', :id => "events_search", class: "form-horizontal" do %>
+    <div class="form-group">
+      <%= label_tag :address, "Where:", class: "col-sm-1 control-label" %>
+      <div class="col-sm-6">
+        <%= text_field_tag :address, params[:address], :autofocus=>true, :placeholder => "enter a street address, city or zip", class: "form-control" %>
+      </div>
+      <%= label_tag :radius, "Distance (Miles)", class: "col-sm-2 control-label" %>
+      <div class="col-sm-3">
+        <%= select_tag(:radius, options_for_select( [5, 10, 25, 50, 100] ), class: "form-control") %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :start_date, "When:", class: "col-sm-1 control-label" %>
+      <div class="col-sm-2">
+        <%= text_field_tag :start_date, params[:start_date], value: format_time(Time.now), class: "form-control", data: { provide: "datepicker" } %>
+      </div>
+      <%= label_tag :start_time, "Time:", class: "col-sm-1 control-label" %>
+      <div class="col-sm-3">
+        <%= time_select :event, :start_time, { ampm: true }, class: "form-control time-input" %>
+      </div>
+      <%= label_tag :options, "More Options", class: "col-sm-2 control-label fa fa-arrow-down", id: "options" %>
+      <div class="col-sm-2">
+        <%= submit_tag "Find A Buddy", :name => nil, class: "btn btn-primary" %>
+      </div>
+    </div>
+
+    <div class="hidden" id="additional-options">
+      <div class="form-group">
+        <%= label_tag :orientation, "I'm A:", class: "col-sm-1 control-label" %>
+        <div class="col-sm-2">
+          <%= select_tag(:orientation, options_for_select( [["Straight", 0], ["Gay/Lesbian", 2], ["Bisexual", 3]] ), class: "form-control" ) %>
+        </div>
+        <div class="col-sm-2">
+          <%= select_tag(:sex, options_for_select( [["I'm A...", nil], ["Guy", 1], ["Girl", 2]] ), class: "form-control" ) %>
+        </div>
+        <%= label_tag :role, "Looking for:", class: "col-sm-2 control-label" %>
+        <div class="col-sm-5">
+          <%= select_tag(:role, options_for_select( [ 
+                                                    ["Single Guy", 1],
+                                                    ["Group of Guys", 2],
+                                                    ["Single Girl", 3],
+                                                    ["Group of Girls", 4],
+                                                    ["Mixed Group", 5],
+                                                    ["All Groups", 6]] ), { multiple: true, size: 6, class: "form-control"} ) %>
+        </div>
+      </div>
+    </div>
+
+  <% end %>

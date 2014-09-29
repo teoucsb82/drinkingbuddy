@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20140928082507) do
   end
 
   create_table "events", force: true do |t|
-    t.date     "start_time",  default: '2014-09-28'
+    t.datetime "start_time"
     t.string   "title"
     t.text     "description"
     t.boolean  "private",     default: false

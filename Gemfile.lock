@@ -60,6 +60,8 @@ GEM
     execjs (2.2.1)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
+    font-awesome-rails (4.2.0.0)
+      railties (>= 3.2, < 5.0)
     geocoder (1.2.5)
     hashie (3.3.1)
     hike (1.2.3)
@@ -181,6 +183,7 @@ DEPENDENCIES
   cloudinary
   coffee-rails (~> 4.0.0)
   devise
+  font-awesome-rails
   geocoder
   jbuilder (~> 1.2)
   jquery-rails
