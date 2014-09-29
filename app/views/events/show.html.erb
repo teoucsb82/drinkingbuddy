@@ -1,1 +1,29 @@
-<%= @event.inspect %>
+<h1><%= @event.title %></h1>
+<h3>Hosted by: <%= link_to @event.user.email, @event.user %></h3>
+<hr>
+<div class="col-sm-6">
+  <div class="col-xs-12">
+    <div class="col-xs-12"><strong><%= @event.event_type %></strong></div>
+
+    <div class="col-xs-3"><strong>When: </strong></div>
+    <div class="col-xs-9"><%= display_time(@event.start_time) %></div>
+
+    <div class="col-xs-3"><strong>Where: </strong></div>
+    <div class="col-xs-9"><%= @event.location_tag.address %></div>
+
+    <div class="col-xs-3"><strong>About: </strong></div>
+    <div class="col-xs-9"><%= @event.description %></div>
+  </div>
+  <div class="col-xs-12">
+    <h3>Guests</h3>
+  </div>
+</div>
+<div class="col-sm-6">
+  <iframe
+  width="600"
+  height="450"
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAiCXfF60JreE2l2nqMNNyf95OCZkVi0Rg
+    &q=<%= @event.location_tag.address %>">
+  </iframe>
+</div>

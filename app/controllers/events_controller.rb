@@ -23,13 +23,9 @@ class EventsController < ApplicationController
   end
 
   def search
-    100.times { p params }
     @events = Event.find_by_search_params(params)
-    10.times { puts "" }
-    p @events
-
     respond_to do |format|
-      format.js  { render :json => @events, :success => true }
+      format.js  { render :json => @events }
     end
 
   end

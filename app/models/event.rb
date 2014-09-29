@@ -3,6 +3,8 @@ class Event < ActiveRecord::Base
   has_many :event_guests
   has_one :location_tag, :as => :locationable
 
+  attr_accessor :event_type
+
   def self.find_by_search_params(params)
     results = LocationTag.near(params[:address], params[:radius].to_i)
                          .where(:locationable_type => "Event")
@@ -19,11 +21,15 @@ class Event < ActiveRecord::Base
     return DateTime.parse(date_string)
   end
 
+  def event_type
+    return self.private? ? "Private Event" : "Public Event"
+  end
+
   def process_params(params)
     date = params[:start_time]
     hour = params["start_time(4i)"].to_i
     minute = params["start_time(5i)"].to_i
     self.start_time = DateTime.new(date.year, date.month, date.day, hour, minute, 0, 0)
     self.private = params["private"] == "yes"
-  end  
+  end
 end

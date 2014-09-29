@@ -25,19 +25,18 @@ $(document).ready ->
         events = $.parseJSON(data)
         loop_events(events)
       error: (result) ->
-        console.log "2"
-        alert("Sorry, we couldn't send your message.")    
+        alert "Sorry, something went wrong with your search."
       complete: (result) ->
-        console.log "3"
-        alert "done"
         button.prop('disabled', false).val("Find A Buddy")
     return
   return
 
 loop_events = (events) ->
   i = 0
-  $("#search-results").empty
+  $("#search-results").html("")
   while i < events.length
-    $("#search-results").append("<div class=\"row\"><a href=\"events/" + events[i].id + "\">" + events[i].title + "</a></div>")
+    $("#search-results").append("<div class=\"col-sm-4\"><a href=\"events/" + events[i].id + "\">" + events[i].title + "</a></div>")
     i++
+  if events.length == 0
+    $("#search-results").append("No Results Found.")
   return
