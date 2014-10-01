@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
   has_many :events
   has_many :event_guests
 
-  validates :email, :phone, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true
+  validates :phone, allow_blank: true, uniqueness: true
 
   class Role
     ADMIN = -1
