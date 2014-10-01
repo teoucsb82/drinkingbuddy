@@ -17,7 +17,7 @@ class TwilioController < ApplicationController
   def send_text_message
     number_to_send_to = "+1#{params[:number_to_send_to]}"
 
-    @twilio_client = Twilio::REST::Client.new TWILIO_CONFIG['sid'], TWILIO_CONFIG['token']
+    @twilio_client = Twilio::REST::Client.new
     @twilio_client.account.sms.messages.create(
       :from => "+13103073387",
       :to => number_to_send_to,
