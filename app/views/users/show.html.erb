@@ -1,4 +1,7 @@
 <h1><%= @user.email %></h1>
+<% unless @user.verified? %>
+  <a id="verify-link" class="small">Verify Account</a>
+<% end %>
 
 <h2>My Events</h2>
   <ul>
@@ -8,3 +11,19 @@
   </ul>
 </h2>
 <%= link_to "Create A New Event", new_event_path %>
+
+<% unless @user.verified? %>
+  <div id="verification-form">
+    <hr>
+    <div class="form-group" id="btn-verify">
+      <%= label_tag :phone, "Cell Phone", class: "col-sm-2 control-label" %>
+      <small>Standard text message rates may apply.</small>
+      <div class="col-sm-3">
+        (<input type="number" name="phone[area_code]" min="1" max="999" id="num-area_code">)
+        <input type="number" name="phone[prefix]" min="1" max="999" id="num-prefix">-
+        <input type="number" name="phone[suffix]" min="1" max="9999" id="num-suffix">
+      </div>
+      <%= button_to "Verify Phone", twilio_send_text_message_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

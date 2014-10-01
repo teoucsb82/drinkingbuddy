@@ -4,9 +4,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
+  has_one :verification
   has_many :location_tags, :as => :locationable
   has_many :events
   has_many :event_guests
+
+  validates :email, :phone, presence: true, uniqueness: true
 
   class Role
     ADMIN = -1
@@ -62,5 +65,9 @@ class User < ActiveRecord::Base
 
   def email_verified?
     self.email && self.email !~ TEMP_EMAIL_REGEX
+  end
+
+  def verified?
+    return !self.verification.blank?
   end
 end

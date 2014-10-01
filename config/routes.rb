@@ -3,13 +3,22 @@ Drinkingbuddy::Application.routes.draw do
 
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
-  resources :users
+  resources :users do
+    member do
+      resource :verification, :only => [:new, :create, :destroy]
+    end
+  end
+  
   resources :events do
     collection do
       post 'search'
     end
   end
 
+  post 'twilio/voice'
+  post 'twilio/sms' => 'twilio#receive_text_message'
+  post 'twilio/send_text_message' => 'twilio#send_text_message'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
