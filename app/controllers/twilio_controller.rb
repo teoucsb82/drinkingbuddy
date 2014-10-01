@@ -7,11 +7,20 @@ class TwilioController < ApplicationController
   
   skip_before_action :verify_authenticity_token
 
-  def receive_text_message 
-    phone = params["From"]
-    message_body = params["Body"]
+  def receive_text_message
+    phone = params["From"].last(10).to_i
     user = User.find_by_phone(phone)
-    100.times { p params }
+
+    message_body = params["Body"].downcase
+    user.create_verification(:unique_id => user.id) if message_body.include?("cheers")
+
+    respond_to do |format|
+      if user == current_user
+        format.js
+      else
+        render :nothing => true, :status => :ok
+      end
+    end
   end
 
   def send_text_message

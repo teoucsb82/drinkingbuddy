@@ -70,4 +70,8 @@ class User < ActiveRecord::Base
   def verified?
     return !self.verification.blank?
   end
+
+  def verifications
+    return Verification.where(:unique_id => self.id).count
+  end
 end
