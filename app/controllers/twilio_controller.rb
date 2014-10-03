@@ -8,9 +8,11 @@ class TwilioController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def receive_text_message
-    phone = params["From"].last(10).to_i
+    phone = params["From"].last(10)
+    10.times { puts "" }
+    p params
     user = User.find_by_phone(phone)
-
+    p user
     message_body = params["Body"].downcase
     user.create_verification(:unique_id => user.id) if message_body.include?("cheers")
 
@@ -32,7 +34,7 @@ class TwilioController < ApplicationController
     )
 
     @user = current_user
-    success = @user.update_attributes!(:phone => params[:number_to_send_to].to_i)
+    success = @user.update_attributes!(:phone => params[:number_to_send_to])
   end
 
 end
