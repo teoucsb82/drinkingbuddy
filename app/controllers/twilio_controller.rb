@@ -24,12 +24,11 @@ class TwilioController < ApplicationController
   end
 
   def send_text_message
-    number_to_send_to = "+1#{params[:number_to_send_to]}"
-
-    @twilio_client = Twilio::REST::Client.new
-    @twilio_client.account.sms.messages.create(
-      :from => "+13103073387",
-      :to => number_to_send_to,
+    number = "+1" + params[:number_to_send_to].to_s unless params[:number_to_send_to].to_s[0..1] == "+1"
+    twilio_client = Twilio::REST::Client.new
+    twilio_client.account.sms.messages.create(
+      :from => TWILIO_CONFIG['from'],
+      :to => number,
       :body => "Hi! Reply CHEERS to this message to confirm your account."
     )
 
