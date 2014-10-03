@@ -26,7 +26,7 @@ class TwilioController < ApplicationController
   def send_text_message
     twilio_client = Twilio::REST::Client.new
     twilio_client.account.sms.messages.create(
-      :from => TWILIO_CONFIG['from'],
+      :from => "+13103073387",
       :to => "+1#{params[:number_to_send_to]}",
       :body => "Hi! Reply CHEERS to this message to confirm your account."
     )
